@@ -93,27 +93,24 @@ int bfexecute(std::vector<Instruction> program)
     int jump_to;
 
     for(std::vector<Instruction>::iterator counter = program.begin(); 
-        counter != program.end();) 
+        counter != program.end();
+        counter++) 
     {
         switch (counter->type) 
         {
         case Instruction::INC:
             arr[idx]++;
-            counter++;
             break;
         case Instruction::DEC:
             arr[idx]--;
-            counter++;
             break;
         case Instruction::LS:
             if (idx == 0) idx = ARR_LEN;
             else idx--;
-            counter++;
             break;
         case Instruction::RS:
             if (idx == ARR_LEN) idx = 0;
             else idx++;
-            counter++;
             break;
         case Instruction::LOOPSTART:
             if (arr[idx] == 0) 
@@ -121,10 +118,6 @@ int bfexecute(std::vector<Instruction> program)
                 jump_to = counter->jump_to;
                 counter = program.begin();
                 std::advance(counter, jump_to);
-            }
-            else 
-            {
-                counter++;
             }
             break;
         case Instruction::LOOPEND:
@@ -134,18 +127,12 @@ int bfexecute(std::vector<Instruction> program)
                 counter = program.begin();
                 std::advance(counter, jump_to);
             }
-            else 
-            {
-                counter++;
-            }
             break;
         case Instruction::GET:
             arr[idx] = getchar();
-            counter++;
             break;
         case Instruction::PRINT:
             std::cout << arr[idx];
-            counter++;
             break;
         default:
             break;
